@@ -1,0 +1,44 @@
+* {
+  padding: 0;
+  margin: 0;
+
+}
+
+body{
+  background: #171717
+}
+
+.box {
+  height: 100px;
+  width: 100px;
+  position: absolute;
+
+}
+
+.board {
+  margin-top: 5rem;
+  position: relative;
+  height: 1200px;
+  width: 1200px;
+  border: solid black 2px;
+  background: url(https://images.chesscomfiles.com/chess-themes/boards/brown/150.png);
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content:center;
+}
+
+.jail-left{
+  height: 300px;
+  width: 150px;
+  background: url(https://images.chesscomfiles.com/chess-themes/boards/brown/150.png);
+}
+
+.jail-right{
+  height: 300px;
+  width: 150px;
+  background: url(https://images.chesscomfiles.com/chess-themes/boards/brown/150.png);
+  transform: rotate(180deg);
+}
