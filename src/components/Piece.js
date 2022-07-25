@@ -4,6 +4,27 @@ import Draggable from "react-draggable";
 export default function Piece(props) {
   const name = props.name;
   const position = props.positions[name];
+  const [displaySquares,setDisplaySquares] = React.useState([])
+
+
+
+
+  const displayed = displaySquares.map(item=>{
+    const disStyle ={
+      height:"40px",
+      width:"40px",
+      borderRadius:"20px",
+      background:"red",
+      position:"absolute",
+      top: props.squares[item].y - 20,
+      left: props.squares[item].x - 20,
+    }
+    return(
+      <div style={disStyle}>
+      </div>
+    )
+  })
+
 
   function getCentre(position) {
     /* return the center position of the square given the corner */
@@ -23,6 +44,7 @@ export default function Piece(props) {
 
   const trackPos = (data) => {
     /* tracks the position of the pieces */
+
     props.setPosition((prevPos) => {
       return {
         ...prevPos,
@@ -31,9 +53,15 @@ export default function Piece(props) {
     });
   };
 
+  function selected(){
+    const moves = getMoves()
+    setDisplaySquares(moves)
+  }
+
   const handleDrop = (data) => {
     /* when a piece get dropped sets its position to the center of the closest square */
     props.setPosition((prevPos) => {
+      setDisplaySquares([])
       return {
         ...prevPos,
         [name]: getCorner(getClosestSquare(getCentre(position)).pos),
@@ -67,12 +95,23 @@ export default function Piece(props) {
 
 
 
+  function getMoves(){
+    let square= getClosestSquare(position)
+      console.log(props.piece.getMoves(square.square))
+      return props.piece.getMoves(square.square)
+
+  }
+
+  
+
 
 
   return (
+    <>
     <Draggable
       position={position}
       onDrag={(e, data) => trackPos(data)}
+      onMouseDown={selected}
       onStop={handleDrop}
     >
       <div className="box" style={Style}>
@@ -82,5 +121,10 @@ export default function Piece(props) {
         </div>
       </div>
     </Draggable>
+
+    {displayed}
+
+    </>
   );
+  
 }
